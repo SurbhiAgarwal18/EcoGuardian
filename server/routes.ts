@@ -2,7 +2,7 @@ import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertUserSchema, insertCarbonEntrySchema, insertGoalSchema } from "@shared/schema";
-import { getChatResponse, getProductRecommendations } from "./ai";
+import { getChatResponse, getProductRecommendations, generateResourcePredictions } from "./ai";
 import session from "express-session";
 import { scrypt, randomBytes, timingSafeEqual } from "crypto";
 import { promisify } from "util";
@@ -382,6 +382,49 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Recommendations error:", error);
       res.status(500).json({ error: "Failed to get recommendations" });
+    }
+  });
+
+  app.get("/api/predictions", requireAuth, async (req: Request, res: Response) => {
+    try {
+      const entries = await storage.getCarbonEntriesByUser(req.session.userId!);
+      
+      if (entries.length === 0) {
+        return res.json({
+          energyPrediction: { value: 0, trend: "stable", confidence: 0 },
+          waterPrediction: { value: 0, trend: "stable", confidence: 0 },
+          carbonPrediction: { value: 0, trend: "stable", confidence: 0 },
+          insights: ["Start tracking your carbon footprint to receive AI-powered predictions"],
+          recommendations: ["Add your first carbon entry to get personalized recommendations"]
+        });
+      }
+
+      const now = new Date();
+      const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+      const last7Days = entries.filter(e => e.date >= sevenDaysAgo);
+      
+      const weeklyTotal = last7Days.reduce((sum, e) => sum + e.amount, 0);
+      const dailyAverage = entries.reduce((sum, e) => sum + e.amount, 0) / Math.max(entries.length, 1);
+      
+      const categoryBreakdown = entries.reduce((acc, entry) => {
+        acc[entry.category] = (acc[entry.category] || 0) + entry.amount;
+        return acc;
+      }, {} as Record<string, number>);
+
+      const topCategory = Object.entries(categoryBreakdown)
+        .sort(([, a], [, b]) => b - a)[0]?.[0] || "transportation";
+
+      const predictions = await generateResourcePredictions({
+        dailyAverage,
+        weeklyTotal,
+        topCategory,
+        categoryBreakdown,
+      });
+
+      res.json(predictions);
+    } catch (error) {
+      console.error("Predictions error:", error);
+      res.status(500).json({ error: "Failed to generate predictions" });
     }
   });
 

@@ -12,6 +12,7 @@ import Calculator from "@/pages/Calculator";
 import Goals from "@/pages/Goals";
 import Recommendations from "@/pages/Recommendations";
 import Analytics from "@/pages/Analytics";
+import Predictions from "@/pages/Predictions";
 import AuthForm from "@/components/AuthForm";
 import MapModule from "@/components/MapModule";
 import ChatInterface from "@/components/ChatInterface";
@@ -99,6 +100,9 @@ function AppContent() {
               </Route>
               <Route path="/analytics">
                 <Analytics />
+              </Route>
+              <Route path="/predictions">
+                <Predictions />
               </Route>
               <Route path="/calculator">
                 <Calculator />
