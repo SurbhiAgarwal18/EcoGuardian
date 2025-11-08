@@ -185,6 +185,47 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/dashboard-metrics", requireAuth, async (req: Request, res: Response) => {
+    try {
+      const entries = await storage.getCarbonEntriesByUser(req.session.userId!);
+      
+      const now = new Date();
+      const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const todayEntries = entries.filter(e => new Date(e.date) >= startOfToday);
+      const todayTotal = todayEntries.reduce((sum, entry) => sum + entry.amount, 0);
+      
+      const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+      const last7Days = entries.filter(e => new Date(e.date) >= sevenDaysAgo);
+      const weeklyTotal = last7Days.reduce((sum, e) => sum + e.amount, 0);
+      const averageDaily = last7Days.length > 0 ? weeklyTotal / 7 : 0;
+      
+      const potentialCarbon = averageDaily > 0 ? averageDaily * 1.5 : 0;
+      const carbonSavedToday = averageDaily > 0 ? Math.max(0, potentialCarbon - todayTotal) : 0;
+      
+      const categoryCount = Object.keys(entries.reduce((acc, e) => {
+        acc[e.category] = true;
+        return acc;
+      }, {} as Record<string, boolean>)).length;
+      
+      const sustainabilityScore = Math.min(100, Math.round(
+        (entries.length >= 7 ? 30 : entries.length * 4) +
+        (averageDaily > 0 && carbonSavedToday > 0 ? 25 : 0) +
+        (categoryCount >= 3 ? 25 : categoryCount * 8) +
+        (averageDaily > 0 && averageDaily < 15 ? 20 : averageDaily > 0 && averageDaily < 25 ? 10 : 0)
+      ));
+      
+      res.json({
+        carbonSavedToday: carbonSavedToday.toFixed(1),
+        sustainabilityScore,
+        todayTotal: todayTotal.toFixed(1),
+        averageDaily: averageDaily.toFixed(1)
+      });
+    } catch (error) {
+      console.error("Dashboard metrics error:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
   app.get("/api/carbon-entries/analytics", requireAuth, async (req: Request, res: Response) => {
     try {
       const entries = await storage.getCarbonEntriesByUser(req.session.userId!);

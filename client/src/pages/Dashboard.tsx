@@ -1,11 +1,13 @@
 import StatCard from "@/components/StatCard";
 import CarbonChart from "@/components/CarbonChart";
 import CategoryCard from "@/components/CategoryCard";
-import { Leaf, TrendingDown, Target, Trophy, Car, Zap, UtensilsCrossed } from "lucide-react";
+import { Leaf, TrendingDown, Target, Trophy, Car, Zap, UtensilsCrossed, Droplets, Award, Navigation } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { CarbonEntry } from "@shared/schema";
+import { Link } from "wouter";
 
 export default function Dashboard() {
   const { data: entries = [], isLoading: entriesLoading } = useQuery<CarbonEntry[]>({
@@ -19,6 +21,25 @@ export default function Dashboard() {
     entryCount: number;
   }>({
     queryKey: ["/api/carbon-entries/stats"],
+  });
+
+  const { data: predictions } = useQuery<{
+    energyPrediction: { value: number; trend: string; confidence: number };
+    waterPrediction: { value: number; trend: string; confidence: number };
+    carbonPrediction: { value: number; trend: string; confidence: number };
+    insights: string[];
+    recommendations: string[];
+  }>({
+    queryKey: ["/api/predictions"],
+  });
+
+  const { data: dashboardMetrics } = useQuery<{
+    carbonSavedToday: string;
+    sustainabilityScore: number;
+    todayTotal: string;
+    averageDaily: string;
+  }>({
+    queryKey: ["/api/dashboard-metrics"],
   });
 
   if (entriesLoading || statsLoading) {
@@ -48,8 +69,54 @@ export default function Dashboard() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">Dashboard</h1>
-        <p className="text-muted-foreground">Track your environmental impact</p>
+        <h1 className="text-3xl font-bold">Smart Dashboard</h1>
+        <p className="text-muted-foreground">AI-powered environmental insights and predictions</p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+        <StatCard
+          title="Energy Prediction"
+          value={predictions?.energyPrediction ? `${predictions.energyPrediction.value}%` : "N/A"}
+          change={predictions?.energyPrediction?.trend || "stable"}
+          trend={predictions?.energyPrediction?.trend === "increasing" ? "up" : predictions?.energyPrediction?.trend === "decreasing" ? "down" : undefined}
+          icon={Zap}
+          iconColor="text-yellow-600"
+        />
+        <StatCard
+          title="Water Prediction"
+          value={predictions?.waterPrediction ? `${predictions.waterPrediction.value}%` : "N/A"}
+          change={predictions?.waterPrediction?.trend || "stable"}
+          trend={predictions?.waterPrediction?.trend === "increasing" ? "up" : predictions?.waterPrediction?.trend === "decreasing" ? "down" : undefined}
+          icon={Droplets}
+          iconColor="text-blue-600"
+        />
+        <StatCard
+          title="Carbon Saved Today"
+          value={dashboardMetrics?.carbonSavedToday ? `${dashboardMetrics.carbonSavedToday} kg` : "0 kg"}
+          icon={Leaf}
+          iconColor="text-green-600"
+        />
+        <StatCard
+          title="Sustainability Score"
+          value={dashboardMetrics?.sustainabilityScore ? `${dashboardMetrics.sustainabilityScore}` : "0"}
+          icon={Award}
+          iconColor="text-purple-600"
+        />
+        <Card className="hover-elevate" data-testid="card-eco-route">
+          <CardHeader className="pb-3">
+            <CardTitle className="text-sm font-medium flex items-center gap-2">
+              <Navigation className="h-4 w-4 text-primary" />
+              Eco-Route
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Link href="/eco-route">
+              <Button variant="outline" size="sm" className="w-full" data-testid="button-view-eco-route">
+                Plan Route
+              </Button>
+            </Link>
+          </CardContent>
+        </Card>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
