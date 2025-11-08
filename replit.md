@@ -12,6 +12,7 @@ EcoGuardian is a **complete and fully functional** full-stack web application de
 - Carbon tracking with real-time statistics and data visualization
 - Smart Analytics with 30-day trends, AI insights, and interactive charts
 - AI Resource Wastage Forecaster with predictions for energy, water, and carbon consumption
+- Eco-Route Navigator with route optimization showing fuel/CO₂ savings
 - AI chatbot with Server-Sent Events (SSE) streaming responses
 - AI-powered product recommendations with fallback content
 - Goal setting and tracking functionality
@@ -56,6 +57,10 @@ Preferred communication style: Simple, everyday language.
 - ✅ Built prediction page with 7-day forecast charts and radar risk assessment
 - ✅ Added AI-powered insights and actionable recommendations
 - ✅ Tested predictions feature end-to-end with refresh functionality
+- ✅ Built Eco-Route Navigator with route optimization algorithm
+- ✅ Created interactive SVG map visualization with waypoints
+- ✅ Implemented route comparison showing 25-31% fuel savings
+- ✅ Tested route calculator end-to-end with multiple location combinations
 
 ## System Architecture
 
@@ -63,7 +68,7 @@ Preferred communication style: Simple, everyday language.
 
 **Component-Based Design**: The application follows a modular React component structure with clear separation of concerns:
 
-- **Page Components** (`client/src/pages/`): Top-level route components (Dashboard, Analytics, Predictions, Calculator, Goals, Landing, Recommendations)
+- **Page Components** (`client/src/pages/`): Top-level route components (Dashboard, Analytics, Predictions, EcoRoute, Calculator, Goals, Landing, Recommendations)
 - **Reusable Components** (`client/src/components/`): Self-contained UI modules (AuthForm, CarbonChart, ChatInterface, MapModule, ProductCard, etc.)
 - **UI Primitives** (`client/src/components/ui/`): shadcn/ui library components for consistent design system
 
@@ -89,6 +94,7 @@ Preferred communication style: Simple, everyday language.
 - `/api/carbon-entries/stats` - Aggregated analytics
 - `/api/carbon-entries/analytics` - Advanced 30-day trend analysis with AI insights
 - `/api/predictions` - AI resource wastage forecasts (energy, water, carbon)
+- `/api/eco-route` - Eco-friendly route calculations with fuel/CO₂ savings
 - `/api/goals` - User carbon reduction goals
 - `/api/chat` - AI chatbot interactions
 - `/api/recommendations` - AI-generated product recommendations
