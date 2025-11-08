@@ -10,12 +10,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           {/* Brand Section */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="h-8 w-8 bg-primary rounded-lg flex items-center justify-center">
-                <Leaf className="h-5 w-5 text-primary-foreground" />
+            <Link href="/" data-testid="link-logo-footer">
+              <div className="flex items-center gap-2 cursor-pointer hover-elevate active-elevate-2 rounded-md p-2 -m-2 inline-flex">
+                <div className="h-8 w-8 bg-primary rounded-lg flex items-center justify-center">
+                  <Leaf className="h-5 w-5 text-primary-foreground" />
+                </div>
+                <span className="text-xl font-bold">EcoGuardian</span>
               </div>
-              <span className="text-xl font-bold">EcoGuardian</span>
-            </div>
+            </Link>
             <p className="text-sm text-muted-foreground">
               AI-powered carbon footprint tracking and sustainable living guidance. 
               Track, analyze, and reduce your environmental impact.

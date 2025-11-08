@@ -12,6 +12,7 @@ import {
   SidebarFooter,
 } from "@/components/ui/sidebar";
 import { Card, CardContent } from "@/components/ui/card";
+import { Link } from "wouter";
 
 const menuItems = [
   { title: "Dashboard", url: "/dashboard", icon: Home },
@@ -30,12 +31,14 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader className="p-4">
-        <div className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center">
-            <Leaf className="h-5 w-5 text-primary-foreground" />
+        <Link href="/" data-testid="link-logo-sidebar">
+          <div className="flex items-center gap-2 cursor-pointer hover-elevate active-elevate-2 rounded-md p-2 -m-2">
+            <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center">
+              <Leaf className="h-5 w-5 text-primary-foreground" />
+            </div>
+            <span className="font-bold text-lg">EcoGuardian</span>
           </div>
-          <span className="font-bold text-lg">EcoGuardian</span>
-        </div>
+        </Link>
       </SidebarHeader>
       
       <SidebarContent>

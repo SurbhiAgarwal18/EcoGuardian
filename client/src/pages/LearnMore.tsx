@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useLocation } from "wouter";
+import { useLocation, Link } from "wouter";
 import { 
   Brain, 
   TrendingDown, 
@@ -98,9 +98,11 @@ export default function LearnMore() {
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-primary/10 to-background py-20 px-4">
         <div className="max-w-4xl mx-auto text-center space-y-6">
-          <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-primary">
-            <Leaf className="h-8 w-8 text-primary-foreground" />
-          </div>
+          <Link href="/" data-testid="link-logo-learn-more">
+            <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-primary cursor-pointer hover-elevate active-elevate-2">
+              <Leaf className="h-8 w-8 text-primary-foreground" />
+            </div>
+          </Link>
           <h1 className="text-4xl md:text-5xl font-bold" data-testid="text-learn-more-title">
             EcoGuardian: AI Carbon-Saver CoPilot
           </h1>

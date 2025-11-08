@@ -8,6 +8,7 @@ import { Leaf } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { Link } from "wouter";
 
 interface AuthFormProps {
   onAuthSuccess?: (user: { id: string; username: string }) => void;
@@ -91,12 +92,14 @@ export default function AuthForm({ onAuthSuccess }: AuthFormProps) {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/10 via-background to-accent/10 p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1 text-center">
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center">
-              <Leaf className="h-6 w-6 text-primary-foreground" />
+          <Link href="/" data-testid="link-logo-auth">
+            <div className="flex items-center justify-center gap-2 mb-2 cursor-pointer hover-elevate active-elevate-2 rounded-md p-2 inline-flex">
+              <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center">
+                <Leaf className="h-6 w-6 text-primary-foreground" />
+              </div>
+              <h1 className="text-2xl font-bold">EcoGuardian</h1>
             </div>
-            <h1 className="text-2xl font-bold">EcoGuardian</h1>
-          </div>
+          </Link>
           <CardTitle className="text-xl">Welcome Back</CardTitle>
           <CardDescription>Sign in to track your carbon footprint</CardDescription>
         </CardHeader>
