@@ -125,7 +125,8 @@ function AppContent() {
               </Route>
               <Route path="/chat">
                 <div className="space-y-6">
-                  <h1 className="text-3xl font-bold">AI Assistant</h1>
+                  <h1 className="text-3xl font-bold">AI Carbon-Chat Agent</h1>
+                  <p className="text-muted-foreground">Get instant answers about carbon savings, sustainable products, and optimization strategies</p>
                   <ChatInterface />
                 </div>
               </Route>

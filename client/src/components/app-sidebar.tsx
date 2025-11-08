@@ -18,10 +18,10 @@ const menuItems = [
   { title: "Analytics", url: "/analytics", icon: BarChart3 },
   { title: "AI Predictions", url: "/predictions", icon: Brain },
   { title: "Eco-Route", url: "/eco-route", icon: Navigation },
+  { title: "AI Chat Agent", url: "/chat", icon: MessageSquare },
   { title: "Calculator", url: "/calculator", icon: Calculator },
   { title: "Goals", url: "/goals", icon: Target },
   { title: "Eco Map", url: "/map", icon: Map },
-  { title: "AI Assistant", url: "/chat", icon: MessageSquare },
   { title: "Recommendations", url: "/recommendations", icon: Sparkles },
   { title: "Products", url: "/products", icon: ShoppingBag },
 ];
