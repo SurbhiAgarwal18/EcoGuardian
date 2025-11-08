@@ -36,10 +36,13 @@ function AppContent() {
 
   const handleAuthSuccess = () => {
     refetch();
-    setLocation("/dashboard");
+    const redirectTo = sessionStorage.getItem("redirectAfterAuth") || "/dashboard";
+    sessionStorage.removeItem("redirectAfterAuth");
+    setLocation(redirectTo);
   };
 
   const handleGetStarted = () => {
+    sessionStorage.setItem("redirectAfterAuth", "/calculator");
     setLocation("/auth");
   };
 

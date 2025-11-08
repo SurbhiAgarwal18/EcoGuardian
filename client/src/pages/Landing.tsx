@@ -37,7 +37,12 @@ export default function Landing({ onGetStarted }: LandingProps) {
               { step: "2", title: "Analyze", desc: "Get AI-powered insights and personalized recommendations" },
               { step: "3", title: "Reduce", desc: "Take action and watch your environmental impact decrease" },
             ].map((item) => (
-              <Card key={item.step} className="hover-elevate">
+              <Card 
+                key={item.step} 
+                className="hover-elevate active-elevate-2 cursor-pointer"
+                onClick={onGetStarted}
+                data-testid={`card-${item.title.toLowerCase()}`}
+              >
                 <CardContent className="p-6 space-y-3">
                   <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
                     <span className="text-3xl font-bold text-primary">{item.step}</span>
