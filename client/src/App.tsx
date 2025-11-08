@@ -167,7 +167,7 @@ function AppContent() {
                         <ProductCard
                           image={bottleImage}
                           name="Eco Steel Bottle"
-                          price="$24.99"
+                          price="₹1,999"
                           carbonSaving="12 kg"
                           ecoScore={9}
                           category="Reusables"
@@ -175,7 +175,7 @@ function AppContent() {
                         <ProductCard
                           image={toothbrushImage}
                           name="Bamboo Brush Set"
-                          price="$12.99"
+                          price="₹999"
                           carbonSaving="3 kg"
                           ecoScore={8}
                           category="Personal Care"
@@ -183,7 +183,7 @@ function AppContent() {
                         <ProductCard
                           image={bagImage}
                           name="Organic Cotton Bag"
-                          price="$15.99"
+                          price="₹1,299"
                           carbonSaving="8 kg"
                           ecoScore={9}
                           category="Shopping"
@@ -191,7 +191,7 @@ function AppContent() {
                         <ProductCard
                           image={chargerImage}
                           name="Solar Power Bank"
-                          price="$39.99"
+                          price="₹3,199"
                           carbonSaving="15 kg"
                           ecoScore={10}
                           category="Electronics"

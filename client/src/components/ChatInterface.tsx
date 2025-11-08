@@ -15,7 +15,7 @@ interface Message {
 
 const suggestedPrompts = [
   "How much carbon will I save if I take bicycle today?",
-  "Best sustainability product under $10?",
+  "Best sustainability product under ₹800?",
   "Optimize my home power usage",
   "Calculate my weekly carbon footprint",
 ];
