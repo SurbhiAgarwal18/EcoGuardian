@@ -14,10 +14,10 @@ interface Message {
 }
 
 const suggestedPrompts = [
-  "How can I reduce energy use?",
-  "Best eco-friendly products",
-  "Calculate my commute impact",
-  "Tips for sustainable eating",
+  "How much carbon will I save if I take bicycle today?",
+  "Best sustainability product under $10?",
+  "Optimize my home power usage",
+  "Calculate my weekly carbon footprint",
 ];
 
 function generateId() {
@@ -28,7 +28,7 @@ export default function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: generateId(),
-      text: "Hello! I'm your EcoGuardian AI assistant. How can I help you reduce your carbon footprint today?",
+      text: "Hello! I'm your AI Carbon-Chat Agent. Ask me about carbon savings, sustainable products, or how to optimize your environmental impact!",
       sender: "ai",
       timestamp: new Date(),
     },
@@ -115,7 +115,7 @@ export default function ChatInterface() {
       <CardHeader className="border-b">
         <CardTitle className="flex items-center gap-2">
           <Sparkles className="h-5 w-5 text-primary" />
-          AI Carbon Assistant
+          AI Carbon-Chat Agent
         </CardTitle>
       </CardHeader>
       <CardContent className="flex-1 flex flex-col p-0">
