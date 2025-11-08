@@ -1,7 +1,7 @@
 import { type User, type InsertUser, type CarbonEntry, type InsertCarbonEntry, type Goal, type InsertGoal, users, carbonEntries, goals } from "@shared/schema";
 import { randomUUID } from "crypto";
-import { drizzle } from "drizzle-orm/neon-serverless";
-import { Pool } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/node-postgres";
+import { Pool } from "pg";
 import { eq, and, gte, lte, desc } from "drizzle-orm";
 
 export interface IStorage {
@@ -105,7 +105,9 @@ export class DbStorage implements IStorage {
     if (!connectionString) {
       throw new Error("DATABASE_URL environment variable is not set");
     }
-    const pool = new Pool({ connectionString });
+    const pool = new Pool({ 
+      connectionString
+    });
     this.db = drizzle(pool);
   }
 
