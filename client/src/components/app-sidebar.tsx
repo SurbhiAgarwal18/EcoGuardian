@@ -1,4 +1,4 @@
-import { Home, Calculator, Map, MessageSquare, ShoppingBag, Leaf, Target, Sparkles, BarChart3, Brain, Navigation } from "lucide-react";
+import { Home, Calculator, Map, MessageSquare, ShoppingBag, Leaf, Target, Sparkles, BarChart3, Brain, Navigation, Settings } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -25,6 +25,7 @@ const menuItems = [
   { title: "Eco Map", url: "/map", icon: Map },
   { title: "Recommendations", url: "/recommendations", icon: Sparkles },
   { title: "Products", url: "/products", icon: ShoppingBag },
+  { title: "Settings", url: "/settings", icon: Settings },
 ];
 
 export function AppSidebar() {

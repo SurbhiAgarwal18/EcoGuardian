@@ -16,6 +16,7 @@ import Recommendations from "@/pages/Recommendations";
 import Analytics from "@/pages/Analytics";
 import Predictions from "@/pages/Predictions";
 import EcoRoute from "@/pages/EcoRoute";
+import Settings from "@/pages/Settings";
 import AuthForm from "@/components/AuthForm";
 import MapModule from "@/components/MapModule";
 import ChatInterface from "@/components/ChatInterface";
@@ -192,6 +193,9 @@ function AppContent() {
                   </Route>
                   <Route path="/learn-more">
                     <LearnMore />
+                  </Route>
+                  <Route path="/settings">
+                    <Settings />
                   </Route>
                   <Route path="/">
                     <Dashboard />
