@@ -29,14 +29,17 @@ declare module "express-session" {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  app.set('trust proxy', 1);
+  
   app.use(
     session({
       secret: process.env.SESSION_SECRET || "ecoguardian-secret-key-change-in-production",
       resave: false,
       saveUninitialized: false,
       cookie: {
-        secure: process.env.NODE_ENV === "production",
+        secure: 'auto',
         httpOnly: true,
+        sameSite: 'lax',
         maxAge: 1000 * 60 * 60 * 24 * 7,
       },
     })
